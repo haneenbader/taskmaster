@@ -7,7 +7,7 @@
     tools:context=".SettingsPage">
 
     <TextView
-        android:id="@+id/textView2"
+        android:id="@+id/textViewusername"
         android:layout_width="319dp"
         android:layout_height="62dp"
         android:layout_marginStart="60dp"
@@ -36,8 +36,22 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView2"
+        app:layout_constraintTop_toBottomOf="@+id/textViewusername"
         app:layout_constraintVertical_bias="0.646" />
+
+    <Button
+        android:id="@+id/savesetting"
+        android:layout_width="139dp"
+        android:layout_height="55dp"
+        android:layout_marginTop="200dp"
+        android:background="@android:color/holo_blue_light"
+        android:text="Save"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textViewusername"
+        app:layout_constraintVertical_bias="0.312" />
 
     <TextView
         android:id="@+id/textView"
@@ -53,7 +67,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
-        android:id="@+id/editTextTextPersonName3"
+        android:id="@+id/edittextusername"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:ems="10"
@@ -64,20 +78,5 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView"
         app:layout_constraintVertical_bias="0.034" />
-
-    <Button
-        android:id="@+id/addtaskhome"
-        android:layout_width="131dp"
-        android:layout_height="52dp"
-        android:layout_marginTop="60dp"
-        android:background="@android:color/holo_blue_light"
-        android:text="Save"
-        android:textSize="16sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.485"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.589" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
