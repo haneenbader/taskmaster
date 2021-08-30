@@ -80,7 +80,7 @@
 
 
     <Button
-        android:id="@+id/homebutton"
+        android:id="@+id/tohomepage"
         android:layout_width="139dp"
         android:layout_height="55dp"
         android:layout_marginTop="200dp"
