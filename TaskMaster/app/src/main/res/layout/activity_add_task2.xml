@@ -45,7 +45,7 @@
         app:layout_constraintTop_toTopOf="@+id/editTextTextPersonName2" />
 
     <TextView
-        android:id="@+id/textView2"
+        android:id="@+id/textViewusername"
         android:layout_width="319dp"
         android:layout_height="62dp"
         android:layout_marginStart="60dp"
@@ -75,12 +75,12 @@
         android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView2"
+        app:layout_constraintTop_toBottomOf="@+id/textViewusername"
         app:layout_constraintVertical_bias="0.176" />
 
 
     <Button
-        android:id="@+id/homebutton"
+        android:id="@+id/tohomepage"
         android:layout_width="139dp"
         android:layout_height="55dp"
         android:layout_marginTop="200dp"
@@ -90,7 +90,7 @@
         android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView2"
+        app:layout_constraintTop_toBottomOf="@+id/textViewusername"
         app:layout_constraintVertical_bias="0.176" />
 
     <EditText
@@ -106,7 +106,7 @@
         android:labelFor="@id/editTextTextPersonName"
         android:text="My Task"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView2" />
+        app:layout_constraintTop_toBottomOf="@+id/textViewusername" />
 
     <TextView
         android:id="@+id/textView"

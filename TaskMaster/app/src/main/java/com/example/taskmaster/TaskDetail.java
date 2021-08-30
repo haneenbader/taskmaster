@@ -6,25 +6,14 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.Toast;
+import android.widget.TextView;
 
-public class AddTask extends AppCompatActivity {
+public class TaskDetail extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_add_task2);
-
-        // target to button add task
-        Button addTask = findViewById(R.id.addtaskbutton);
-        //add eventListener
-
-        addTask.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(getApplicationContext(), "submitted!", Toast.LENGTH_SHORT).show();
-            }
-        });
+        setContentView(R.layout.activity_task_detail);
 
         // target to button home page
         Button homePage = findViewById(R.id.tohomepage);
@@ -32,10 +21,15 @@ public class AddTask extends AppCompatActivity {
         homePage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent goToHomePage = new Intent(AddTask.this , MainActivity.class);
+                Intent goToHomePage = new Intent(TaskDetail.this , MainActivity.class);
                 startActivity(goToHomePage);
             }
         });
 
+       //get value from intent
+
+        TextView textViewTitle = findViewById(R.id.textViewtitle);
+        String taskTitle = getIntent().getExtras().getString("taskTitle");
+        textViewTitle.setText(taskTitle);
     }
 }

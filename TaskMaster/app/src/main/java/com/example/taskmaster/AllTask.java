@@ -21,7 +21,7 @@ public class AllTask extends AppCompatActivity {
         homePage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent goToHomePage = new Intent(AllTask.this , HomePage.class);
+                Intent goToHomePage = new Intent(AllTask.this , MainActivity.class);
                 startActivity(goToHomePage);
             }
         });
