@@ -66,7 +66,7 @@
         app:layout_constraintVertical_bias="0.034" />
 
     <Button
-        android:id="@+id/savesetting"
+        android:id="@+id/addtaskhome"
         android:layout_width="131dp"
         android:layout_height="52dp"
         android:layout_marginTop="60dp"

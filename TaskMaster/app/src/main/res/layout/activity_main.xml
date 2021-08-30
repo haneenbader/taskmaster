@@ -7,34 +7,54 @@
     tools:context=".MainActivity">
 
     <Button
-        android:id="@+id/button4"
-        android:layout_width="318dp"
-        android:layout_height="53dp"
-        android:text="Solve Lab 27"
-        tools:layout_editor_absoluteX="44dp"
-        tools:layout_editor_absoluteY="397dp" />
+        android:id="@+id/hometosetting"
+        android:layout_width="131dp"
+        android:layout_height="52dp"
+        android:layout_marginTop="60dp"
+        android:background="@android:color/holo_blue_light"
+        android:text="Setting"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView2"
+        app:layout_constraintVertical_bias="0.627" />
 
     <Button
-        android:id="@+id/button5"
+        android:id="@+id/task1"
         android:layout_width="322dp"
         android:layout_height="53dp"
+        android:layout_marginBottom="316dp"
         android:text="Submit LJ27"
-        tools:layout_editor_absoluteX="44dp"
-        tools:layout_editor_absoluteY="524dp" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.449"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/task2"
+        android:layout_width="322dp"
+        android:layout_height="53dp"
+        android:layout_marginBottom="248dp"
+        android:text="Solve Lab 27"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.449"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <Button
         android:id="@+id/alltask"
         android:layout_width="131dp"
         android:layout_height="52dp"
         android:layout_marginTop="60dp"
-        android:layout_marginEnd="44dp"
+        android:layout_marginEnd="48dp"
         android:background="@android:color/holo_blue_light"
         android:text="ALL TASK"
         android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageView2"
-        app:layout_constraintVertical_bias="0.739" />
+        app:layout_constraintVertical_bias="0.863" />
 
     <TextView
         android:id="@+id/textView2"
@@ -56,21 +76,21 @@
 
     <ImageView
         android:id="@+id/imageView2"
-        android:layout_width="318dp"
-        android:layout_height="270dp"
-        android:layout_marginStart="44dp"
+        android:layout_width="229dp"
+        android:layout_height="200dp"
         android:layout_marginTop="10dp"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView2"
-        app:layout_constraintVertical_bias="0.0"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.222"
         app:srcCompat="@drawable/all_task" />
 
     <Button
-        android:id="@+id/savesetting"
+        android:id="@+id/addtaskhome"
         android:layout_width="131dp"
         android:layout_height="52dp"
-        android:layout_marginStart="44dp"
+        android:layout_marginStart="40dp"
         android:layout_marginTop="60dp"
         android:background="@android:color/holo_blue_light"
         android:text="ADD TASK"
@@ -78,13 +98,17 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageView2"
-        app:layout_constraintVertical_bias="0.735" />
+        app:layout_constraintVertical_bias="0.863" />
 
     <Button
-        android:id="@+id/button3"
+        android:id="@+id/task3"
         android:layout_width="322dp"
-        android:layout_height="51dp"
+        android:layout_height="53dp"
+        android:layout_marginBottom="180dp"
         android:text="Edit CC26"
-        tools:layout_editor_absoluteX="44dp"
-        tools:layout_editor_absoluteY="463dp" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.449"
+        app:layout_constraintStart_toStartOf="parent" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
