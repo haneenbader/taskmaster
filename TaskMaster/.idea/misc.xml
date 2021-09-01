@@ -9,9 +9,10 @@
         <entry key="..\:/java-401/TaskMaster/app/src/main/res/layout/activity_main.xml" value="0.2" />
         <entry key="..\:/java-401/taskmaster0/TaskMaster/app/src/main/res/layout/activity_add_task2.xml" value="0.2" />
         <entry key="..\:/java-401/taskmaster0/TaskMaster/app/src/main/res/layout/activity_home_page.xml" value="0.2" />
-        <entry key="..\:/java-401/taskmaster0/TaskMaster/app/src/main/res/layout/activity_main.xml" value="0.10144927536231885" />
+        <entry key="..\:/java-401/taskmaster0/TaskMaster/app/src/main/res/layout/activity_main.xml" value="0.22" />
         <entry key="..\:/java-401/taskmaster0/TaskMaster/app/src/main/res/layout/activity_settings_page.xml" value="0.2" />
         <entry key="..\:/java-401/taskmaster0/TaskMaster/app/src/main/res/layout/activity_task_detail.xml" value="0.2" />
+        <entry key="..\:/java-401/taskmaster0/TaskMaster/app/src/main/res/layout/fragment_task_item.xml" value="0.22" />
       </map>
     </option>
   </component>

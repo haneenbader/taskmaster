@@ -1,6 +1,8 @@
 package com.example.taskmaster;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -9,9 +11,8 @@ import android.preference.PreferenceManager;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import java.util.prefs.Preferences;
+import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -89,7 +90,18 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(goToSetting);
             }
         });
-    }
+
+        ArrayList<Task> AllTask = new ArrayList<Task>();
+        AllTask.add(new Task("Submit lab27","submit it after add readme.md","new"));
+        AllTask.add(new Task("Solve lab28","all requirement is done as well","complete"));
+        AllTask.add(new Task("Edit CC27","rewrite white board","in progress"));
+        RecyclerView allTaskRecycleView = findViewById(R.id.taskrecycleview);
+        allTaskRecycleView.setLayoutManager(new LinearLayoutManager(this));
+        allTaskRecycleView.setAdapter(new TaskAdapter(AllTask));
+
+
+}
+
 
 
 //    @Override
