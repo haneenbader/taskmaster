@@ -1,9 +1,11 @@
 package com.example.taskmaster;
 
 
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -36,6 +38,16 @@ public class TaskAdapter extends  RecyclerView.Adapter<TaskAdapter.TaskViewHolde
         public TaskViewHolder(@NonNull View itemView) {
             super(itemView);
             this.itemView = itemView;
+            itemView.findViewById(R.id.itemViewDetail).setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent toTaskDetailsPage = new Intent(v.getContext() ,TaskDetail.class);
+                    toTaskDetailsPage.putExtra("taskTitle",task.title);
+                    toTaskDetailsPage.putExtra("taskBody",task.body);
+                    toTaskDetailsPage.putExtra("taskState",task.state);
+                    v.getContext().startActivity(toTaskDetailsPage);
+                }
+            });
         }
     }
 
@@ -53,17 +65,12 @@ public class TaskAdapter extends  RecyclerView.Adapter<TaskAdapter.TaskViewHolde
     @Override
     public void onBindViewHolder(@NonNull TaskViewHolder holder, int position) {
         holder.task = allTask.get(position);
-        TextView title = holder.itemView.findViewById(R.id.titletaskfragment);
-        TextView body = holder.itemView.findViewById(R.id.bodytaskfragment);
-        TextView state = holder.itemView.findViewById(R.id.statetaskefragment);
-//
-
-        title.setText(holder.task.title);
-        body.setText(holder.task.body);
-        state.setText(holder.task.state);
-
+        Button titleButton = holder.itemView.findViewById(R.id.titletaskfragment);
+        titleButton.setText(holder.task.title);
 
     }
+
+
 //    impliment after extend class
     @Override
     public int getItemCount() {
