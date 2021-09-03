@@ -49,3 +49,18 @@ The main page  modified to contain three different buttons with hardcoded task t
 The homepage should also contain a button to visit the Settings page, and once the user has entered their username, it should display “{username}’s tasks” above the three task buttons.
 
 ![Home Page](screenshots/homePageUser.png)
+
+
+### Feature Tasks lab28
+
+*Task Model*
+
+Task class. A Task have a title, a body, and a state. The state should be one of “new”, “assigned”, “in progress”, or “complete”.
+
+*Homepage*
+
+Refactor  homepage now to use a RecyclerView for displaying Task data. This should have hardcoded Task data .
+
+Ensure that you can tap on any one of the Tasks in the RecyclerView, and it will appropriately launch the detail page with the correct Task title displayed.
+
+![Home Page](screenshots/home page lab28.png)
