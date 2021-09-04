@@ -63,4 +63,4 @@ Refactor  homepage now to use a RecyclerView for displaying Task data. This shou
 
 Ensure that you can tap on any one of the Tasks in the RecyclerView, and it will appropriately launch the detail page with the correct Task title displayed.
 
-![Home Page](screenshots/home page lab28.png)
+![Home Page lab28](screenshots/homepagelab28.png)

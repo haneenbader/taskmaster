@@ -7,20 +7,44 @@
     tools:context=".AddTask">
 
 
+    <EditText
+        android:id="@+id/taskState"
+        android:layout_width="298dp"
+        android:layout_height="67dp"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="308dp"
+        android:background="@color/white"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:labelFor="@id/tastTitle"
+        android:text="Do Something"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="152dp"
+        android:layout_height="25dp"
+        android:background="@color/white"
+        android:text="Task State"
+        android:textSize="16sp"
+        app:layout_constraintStart_toStartOf="@+id/taskState"
+        app:layout_constraintTop_toTopOf="@+id/taskState" />
+
     <TextView
         android:id="@+id/textView4"
         android:layout_width="152dp"
         android:layout_height="25dp"
-        android:layout_marginStart="60dp"
-        android:layout_marginLeft="60dp"
-        android:layout_marginTop="100dp"
+        android:layout_marginStart="40dp"
         android:text="Total Task : 0"
         android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/addtaskbutton" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.626" />
 
     <EditText
-        android:id="@+id/editTextTextPersonName2"
+        android:id="@+id/taskDescription"
         android:layout_width="298dp"
         android:layout_height="67dp"
         android:layout_marginStart="40dp"
@@ -29,10 +53,10 @@
         android:background="@color/white"
         android:ems="10"
         android:inputType="textPersonName"
-        android:labelFor="@id/editTextTextPersonName"
+        android:labelFor="@id/tastTitle"
         android:text="Do Something"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextTextPersonName" />
+        app:layout_constraintTop_toBottomOf="@+id/tastTitle" />
 
     <TextView
         android:id="@+id/textView3"
@@ -41,8 +65,8 @@
         android:background="@color/white"
         android:text="Task description"
         android:textSize="16sp"
-        app:layout_constraintStart_toStartOf="@+id/editTextTextPersonName2"
-        app:layout_constraintTop_toTopOf="@+id/editTextTextPersonName2" />
+        app:layout_constraintStart_toStartOf="@+id/taskDescription"
+        app:layout_constraintTop_toTopOf="@+id/taskDescription" />
 
     <TextView
         android:id="@+id/textViewusername"
@@ -76,25 +100,24 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textViewusername"
-        app:layout_constraintVertical_bias="0.176" />
-
+        app:layout_constraintVertical_bias="0.681" />
 
     <Button
         android:id="@+id/tohomepage"
         android:layout_width="139dp"
         android:layout_height="55dp"
         android:layout_marginTop="200dp"
-        android:layout_marginEnd="40dp"
+        android:layout_marginEnd="72dp"
         android:background="@android:color/holo_blue_light"
         android:text="Home Page"
         android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textViewusername"
-        app:layout_constraintVertical_bias="0.176" />
+        app:layout_constraintVertical_bias="0.681" />
 
     <EditText
-        android:id="@+id/editTextTextPersonName"
+        android:id="@+id/tastTitle"
         android:layout_width="298dp"
         android:layout_height="67dp"
         android:layout_marginStart="40dp"
@@ -103,7 +126,7 @@
         android:background="@color/white"
         android:ems="10"
         android:inputType="textPersonName"
-        android:labelFor="@id/editTextTextPersonName"
+        android:labelFor="@id/tastTitle"
         android:text="My Task"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textViewusername" />
@@ -115,8 +138,8 @@
         android:background="@color/white"
         android:text="Task title"
         android:textSize="16sp"
-        app:layout_constraintStart_toStartOf="@+id/editTextTextPersonName"
-        app:layout_constraintTop_toTopOf="@+id/editTextTextPersonName" />
+        app:layout_constraintStart_toStartOf="@+id/tastTitle"
+        app:layout_constraintTop_toTopOf="@+id/tastTitle" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

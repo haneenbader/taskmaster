@@ -3,6 +3,7 @@ package com.example.taskmaster;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.room.Room;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -13,6 +14,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -57,13 +59,22 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        ArrayList<Task> AllTask = new ArrayList<Task>();
-        AllTask.add(new Task("Submit lab27","submit it after add readme.md","new"));
-        AllTask.add(new Task("Solve lab28","all requirement is done as well","complete"));
-        AllTask.add(new Task("Edit CC27","rewrite white board","in progress"));
+//        ArrayList<Task> AllTask = new ArrayList<Task>();
+//        AllTask.add(new Task("Submit lab27","submit it after add readme.md","new"));
+//        AllTask.add(new Task("Solve lab28","all requirement is done as well","complete"));
+//        AllTask.add(new Task("Edit CC27","rewrite white board","in progress"));
+
+//        get data from database
+        AppDatabase appDatabase =  Room.databaseBuilder(getApplicationContext(), AppDatabase.class, "task").allowMainThreadQueries().build();
+        TaskDao taskDao = appDatabase.taskDao();
+
+
+        List<Task> task = taskDao.getAll();
+
+
         RecyclerView allTaskRecycleView = findViewById(R.id.taskrecycleview);
         allTaskRecycleView.setLayoutManager(new LinearLayoutManager(this));
-        allTaskRecycleView.setAdapter(new TaskAdapter(AllTask));
+        allTaskRecycleView.setAdapter(new TaskAdapter(task));
 
 
 }
