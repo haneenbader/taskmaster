@@ -65,7 +65,7 @@ public class MainActivity extends AppCompatActivity {
 //        AllTask.add(new Task("Edit CC27","rewrite white board","in progress"));
 
 //        get data from database
-        AppDatabase appDatabase =  Room.databaseBuilder(getApplicationContext(), AppDatabase.class, "task").allowMainThreadQueries().build();
+        AppDatabase appDatabase =  Room.databaseBuilder(getApplicationContext(), AppDatabase.class, "task").allowMainThreadQueries().fallbackToDestructiveMigration().build();
         TaskDao taskDao = appDatabase.taskDao();
 
 
