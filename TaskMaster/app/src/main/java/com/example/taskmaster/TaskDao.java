@@ -16,4 +16,7 @@ public interface TaskDao {
 
     @Delete
     void delete(Task task);
+
+    @Query("SELECT * FROM task WHERE id LIKE :id")
+    Task findById(int id) ;
 }

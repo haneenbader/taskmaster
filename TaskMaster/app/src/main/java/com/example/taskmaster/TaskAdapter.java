@@ -38,13 +38,16 @@ public class TaskAdapter extends  RecyclerView.Adapter<TaskAdapter.TaskViewHolde
         public TaskViewHolder(@NonNull View itemView) {
             super(itemView);
             this.itemView = itemView;
+
             itemView.findViewById(R.id.itemViewDetail).setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+
                     Intent toTaskDetailsPage = new Intent(v.getContext() ,TaskDetail.class);
-                    toTaskDetailsPage.putExtra("taskTitle",task.title);
-                    toTaskDetailsPage.putExtra("taskBody",task.body);
-                    toTaskDetailsPage.putExtra("taskState",task.state);
+                    System.out.println(R.id.itemViewDetail);
+                    System.out.println(task.id);
+                    toTaskDetailsPage.putExtra("id",task.id);
+
                     v.getContext().startActivity(toTaskDetailsPage);
                 }
             });
@@ -76,6 +79,5 @@ public class TaskAdapter extends  RecyclerView.Adapter<TaskAdapter.TaskViewHolde
     public int getItemCount() {
         return allTask.size();
     }
-
 
 }

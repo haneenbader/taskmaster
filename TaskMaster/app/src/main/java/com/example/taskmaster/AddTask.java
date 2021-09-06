@@ -31,7 +31,7 @@ public class AddTask extends AppCompatActivity {
 
                 Toast.makeText(getApplicationContext(), "submitted!", Toast.LENGTH_SHORT).show();
 //                take data from input to database
-                  appDatabase = Room.databaseBuilder(getApplicationContext(), AppDatabase.class, "task").allowMainThreadQueries().fallbackToDestructiveMigration().build();
+                  appDatabase = Room.databaseBuilder(getApplicationContext(), AppDatabase.class, "database_task").allowMainThreadQueries().fallbackToDestructiveMigration().build();
                 TaskDao taskDao = appDatabase.taskDao();
                 Task task =new Task(title.getText().toString() ,body.getText().toString() , state.getText().toString());
                 taskDao.insertAll(task);
