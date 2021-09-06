@@ -64,3 +64,33 @@ Refactor  homepage now to use a RecyclerView for displaying Task data. This shou
 Ensure that you can tap on any one of the Tasks in the RecyclerView, and it will appropriately launch the detail page with the correct Task title displayed.
 
 ![Home Page lab28](screenshots/homepagelab28.png)
+
+
+### Feature Tasks lab29
+
+*Task Model and Room*
+
+use room to save data in local , save data fron form add task to data base 
+
+*Homepage*
+
+ homepage’s RecyclerView to display all Task entities in your database.
+
+![Home Page lab29](screenshots/home_lab29.png)
+
+*Detail Page*
+
+Now the description and status of a tapped task are also displayed on the detail page, in addition to the title. the app set data from database
+
+![DEtails Page lab29](screenshots/detailsPageLab29.png)
+
+
+### Feature Tasks lab31
+
+*Espresso Testing*
+
+Add Espresso to  application, and use it to test basic functionality of the main components of  application. For example:
+
+    assert that important UI elements are displayed on the page
+    tap on a task, and assert that the resulting activity displays the name of that task
+    edit the user’s username, and assert that it says the correct thing on the homepage
