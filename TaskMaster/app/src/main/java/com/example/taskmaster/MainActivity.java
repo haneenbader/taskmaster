@@ -1,5 +1,6 @@
 package com.example.taskmaster;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -8,10 +9,20 @@ import androidx.room.Room;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
+import android.os.Message;
 import android.preference.PreferenceManager;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+
+import com.amplifyframework.AmplifyException;
+import com.amplifyframework.api.aws.AWSApiPlugin;
+import com.amplifyframework.api.graphql.model.ModelQuery;
+import com.amplifyframework.core.Amplify;
+import com.amplifyframework.datastore.generated.model.Todo;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,7 +33,6 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
 
         // target to button add task
         Button addTask = findViewById(R.id.addtaskhome);
@@ -59,21 +69,60 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        try {
+            // Add these lines to add the AWSApiPlugin plugins
+            Amplify.addPlugin(new AWSApiPlugin() );
+            Amplify.configure(getApplicationContext());
+
+            Log.i("MyAmplifyApp", "Initialized Amplify");
+        } catch ( AmplifyException error) {
+            Log.e("MyAmplifyApp", "Could not initialize Amplify", error);
+        }
+
+
+
 //        ArrayList<Task> AllTask = new ArrayList<Task>();
 //        AllTask.add(new Task("Submit lab27","submit it after add readme.md","new"));
 //        AllTask.add(new Task("Solve lab28","all requirement is done as well","complete"));
 //        AllTask.add(new Task("Edit CC27","rewrite white board","in progress"));
 
-//        get data from database
-        AppDatabase appDatabase =  Room.databaseBuilder(getApplicationContext(), AppDatabase.class, "database_task").allowMainThreadQueries().fallbackToDestructiveMigration().build();
-        TaskDao taskDao = appDatabase.taskDao();
+//        get data from database room
+//        AppDatabase appDatabase =  Room.databaseBuilder(getApplicationContext(), AppDatabase.class, "database_task").allowMainThreadQueries().fallbackToDestructiveMigration().build();
+//        TaskDao taskDao = appDatabase.taskDao();
+//
+//        List<Task> task = taskDao.getAll();
 
-        List<Task> task = taskDao.getAll();
-
+        List<Todo> AllTask =new ArrayList<>();
         RecyclerView allTaskRecycleView = findViewById(R.id.taskrecycleview);
-        allTaskRecycleView.setLayoutManager(new LinearLayoutManager(this));
-        allTaskRecycleView.setAdapter(new TaskAdapter(task));
 
+
+        Handler handler = new Handler( Looper.getMainLooper(),
+                new Handler.Callback(){
+                    @Override
+                    public boolean handleMessage(@NonNull Message message){
+                        allTaskRecycleView.getAdapter().notifyDataSetChanged();
+                        return false ;
+                    }
+
+                });
+                Amplify.API.query(
+                ModelQuery.list(Todo.class ),
+                response -> {
+                    for (Todo todo : response.getData()) {
+                        Log.i("MyAmplifyApp", todo.getId());
+                        Log.i("MyAmplifyApp", todo.getTitle());
+                        Log.i("MyAmplifyApp", todo.getDescription());
+                        Log.i("MyAmplifyApp", todo.getState());
+                        AllTask.add(todo);
+                    }
+                    handler.sendEmptyMessage(1);
+
+                },
+                error -> Log.e("MyAmplifyApp", "Query failure", error)
+        );
+
+        allTaskRecycleView.setLayoutManager(new LinearLayoutManager(this));
+        allTaskRecycleView.setAdapter(new TaskAdapter(AllTask));
 
 }
 

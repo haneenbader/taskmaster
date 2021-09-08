@@ -11,6 +11,8 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.amplifyframework.datastore.generated.model.Todo;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,9 +21,9 @@ import java.util.List;
 public class TaskAdapter extends  RecyclerView.Adapter<TaskAdapter.TaskViewHolder>{
 
     // 2- create the list the the adapter will use to bind data
-    List<Task> allTask = new ArrayList<>();
+    List<Todo> allTask = new ArrayList<>();
     // generate constructor
-    public TaskAdapter(List<Task> allTask) {
+    public TaskAdapter(List<Todo> allTask) {
         this.allTask = allTask;
     }
 
@@ -30,7 +32,7 @@ public class TaskAdapter extends  RecyclerView.Adapter<TaskAdapter.TaskViewHolde
     // 3- create the ViewHolder class (Wraps the data and the view)
     public  static  class TaskViewHolder extends RecyclerView.ViewHolder {
         // 4- The model object
-        public Task task ;
+        public Todo task ;
         // 5- view object
         View itemView ;
         // + setting the itemView value
@@ -39,15 +41,14 @@ public class TaskAdapter extends  RecyclerView.Adapter<TaskAdapter.TaskViewHolde
             super(itemView);
             this.itemView = itemView;
 
-            itemView.findViewById(R.id.itemViewDetail).setOnClickListener(new View.OnClickListener() {
+            itemView.findViewById(R.id.titletaskfragment).setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
 
                     Intent toTaskDetailsPage = new Intent(v.getContext() ,TaskDetail.class);
-                    System.out.println(R.id.itemViewDetail);
-                    System.out.println(task.id);
-                    toTaskDetailsPage.putExtra("id",task.id);
-
+                    toTaskDetailsPage.putExtra("title",task.getTitle());
+                    toTaskDetailsPage.putExtra("body",task.getDescription());
+                    toTaskDetailsPage.putExtra("state",task.getState());
                     v.getContext().startActivity(toTaskDetailsPage);
                 }
             });
@@ -69,7 +70,7 @@ public class TaskAdapter extends  RecyclerView.Adapter<TaskAdapter.TaskViewHolde
     public void onBindViewHolder(@NonNull TaskViewHolder holder, int position) {
         holder.task = allTask.get(position);
         Button titleButton = holder.itemView.findViewById(R.id.titletaskfragment);
-        titleButton.setText(holder.task.title);
+        titleButton.setText(holder.task.getTitle());
 
     }
 

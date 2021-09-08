@@ -94,3 +94,18 @@ Add Espresso to  application, and use it to test basic functionality of the main
     assert that important UI elements are displayed on the page
     tap on a task, and assert that the resulting activity displays the name of that task
     edit the user’s username, and assert that it says the correct thing on the homepage
+
+
+
+### Feature Tasks lab32
+
+
+Using the amplify add api command, create a Task resource that replicates our existing Task schema. Update all references to the Task data to instead use AWS Amplify to access your data in DynamoDB instead of in Room.
+
+*Add Task Form*
+
+Modify  Add Task form to save the data entered in as a Task to DynamoDB.
+
+*Homepage*
+
+Refactor  homepage’s RecyclerView to display all Task entities in DynamoDB. 
