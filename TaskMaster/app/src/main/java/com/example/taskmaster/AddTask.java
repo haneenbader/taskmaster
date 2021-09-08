@@ -5,10 +5,15 @@ import androidx.room.Room;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
+
+import com.amplifyframework.api.graphql.model.ModelMutation;
+import com.amplifyframework.core.Amplify;
+import com.amplifyframework.datastore.generated.model.Todo;
 
 public class AddTask extends AppCompatActivity {
     AppDatabase appDatabase ;
@@ -31,10 +36,27 @@ public class AddTask extends AppCompatActivity {
 
                 Toast.makeText(getApplicationContext(), "submitted!", Toast.LENGTH_SHORT).show();
 //                take data from input to database
-                  appDatabase = Room.databaseBuilder(getApplicationContext(), AppDatabase.class, "database_task").allowMainThreadQueries().fallbackToDestructiveMigration().build();
-                TaskDao taskDao = appDatabase.taskDao();
-                Task task =new Task(title.getText().toString() ,body.getText().toString() , state.getText().toString());
-                taskDao.insertAll(task);
+//                  appDatabase = Room.databaseBuilder(getApplicationContext(), AppDatabase.class, "database_task").allowMainThreadQueries().fallbackToDestructiveMigration().build();
+//                TaskDao taskDao = appDatabase.taskDao();
+//                Task task =new Task(title.getText().toString() ,body.getText().toString() , state.getText().toString());
+//                taskDao.insertAll(task);
+
+                Todo todo = Todo.builder()
+                        .title(title.getText().toString())
+                        .description(body.getText().toString())
+                        .state(state.getText().toString())
+                        .build();
+
+
+
+                Amplify.API.mutate(
+                        ModelMutation.create(todo),
+                        response -> Log.i("MyAmplifyApp", "Added Todo with id: " + response.getData().getId()),
+                        error -> Log.e("MyAmplifyApp", "Create failed", error)
+                );
+
+
+
             }
         });
 
