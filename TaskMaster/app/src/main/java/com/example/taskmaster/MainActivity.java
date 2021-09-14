@@ -49,9 +49,6 @@ public class MainActivity extends AppCompatActivity {
         );
             }
         });
-
-
-
         // target to button add task
         Button addTask = findViewById(R.id.addtaskhome);
 
@@ -99,13 +96,6 @@ public class MainActivity extends AppCompatActivity {
             Log.e("MyAmplifyApp", "Could not initialize Amplify", error);
         }
 
-//        Button signIn = findViewById(R.id.signIn);
-//        signIn.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//
-//            }
-//        });
 //sing up activity (replace email , username , passwoord)
         AuthSignUpOptions options = AuthSignUpOptions.builder()
                 .userAttribute(AuthUserAttributeKey.email(), "haneenalwatan993@gmail.com")
