@@ -31,24 +31,63 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
+public void singIn(){
+    //sing up activity (replace email , username , passwoord)
+    AuthSignUpOptions options = AuthSignUpOptions.builder()
+            .userAttribute(AuthUserAttributeKey.email(), "haneenalwatan993@gmail.com")
+            .build();
+//        Amplify.Auth.signUp("haneen", "Pass123456", options,
+//                result -> Log.i("AuthQuickStart", "Result: " + result.toString()),
+//                error -> Log.e("AuthQuickStart", "Sign up failed", error)
+//        );
 
+//        Amplify.Auth.confirmSignUp(
+//                "haneen",
+//                "855565",
+//                result -> Log.i("AuthQuickstart", result.isSignUpComplete() ? "Confirm signUp succeeded" : "Confirm sign up not complete"),
+//                error -> Log.e("AuthQuickstart", error.toString())
+//        );
+    Amplify.Auth.signInWithWebUI(
+            this,
+            result -> Log.i("AuthQuickStart", result.toString()),
+            error -> Log.e("AuthQuickStart", error.toString())
+    );
+
+}
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_main);
 
+        try {
+            // Add these lines to add the AWSApiPlugin plugins
+            Amplify.addPlugin(new AWSApiPlugin() );
+            // Add this line, to include the Auth plugin.
+            Amplify.addPlugin(new AWSCognitoAuthPlugin() );
+            Amplify.configure(getApplicationContext());
 
+            Log.i("MyAmplifyApp", "Initialized Amplify");
+        } catch ( AmplifyException error) {
+            Log.e("MyAmplifyApp", "Could not initialize Amplify", error);
+        }
+        singIn();
 
         Button signOut = findViewById(R.id.signOut);
         signOut.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Amplify.Auth.signOut(
-                () -> Log.i("AuthQuickstart", "Signed out successfully"),
-                error -> Log.e("AuthQuickstart", error.toString())
-        );
+                        () -> { singIn();
+                                Log.i("AuthQuickstart", "Signed out successfully");},
+
+                        error -> Log.e("AuthQuickstart", error.toString())
+                );
             }
         });
+
+
+
         // target to button add task
         Button addTask = findViewById(R.id.addtaskhome);
 
@@ -73,7 +112,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-         // target to button all task
+        // target to button all task
         Button setting = findViewById(R.id.hometosetting);
         //add eventListener
         setting.setOnClickListener(new View.OnClickListener() {
@@ -84,38 +123,8 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        try {
-            // Add these lines to add the AWSApiPlugin plugins
-            Amplify.addPlugin(new AWSApiPlugin() );
-            // Add this line, to include the Auth plugin.
-            Amplify.addPlugin(new AWSCognitoAuthPlugin() );
-            Amplify.configure(getApplicationContext());
 
-            Log.i("MyAmplifyApp", "Initialized Amplify");
-        } catch ( AmplifyException error) {
-            Log.e("MyAmplifyApp", "Could not initialize Amplify", error);
-        }
 
-//sing up activity (replace email , username , passwoord)
-        AuthSignUpOptions options = AuthSignUpOptions.builder()
-                .userAttribute(AuthUserAttributeKey.email(), "haneenalwatan993@gmail.com")
-                .build();
-//        Amplify.Auth.signUp("haneen", "Pass123456", options,
-//                result -> Log.i("AuthQuickStart", "Result: " + result.toString()),
-//                error -> Log.e("AuthQuickStart", "Sign up failed", error)
-//        );
-
-//        Amplify.Auth.confirmSignUp(
-//                "haneen",
-//                "855565",
-//                result -> Log.i("AuthQuickstart", result.isSignUpComplete() ? "Confirm signUp succeeded" : "Confirm sign up not complete"),
-//                error -> Log.e("AuthQuickstart", error.toString())
-//        );
-        Amplify.Auth.signInWithWebUI(
-                this,
-                result -> Log.i("AuthQuickStart", result.toString()),
-                error -> Log.e("AuthQuickStart", error.toString())
-        );
 
 
 //        ArrayList<Task> AllTask = new ArrayList<Task>();
@@ -142,7 +151,7 @@ public class MainActivity extends AppCompatActivity {
                     }
 
                 });
-                Amplify.API.query(
+        Amplify.API.query(
                 ModelQuery.list(Todo.class ),
                 response -> {
                     for (Todo todo : response.getData()) {
@@ -161,7 +170,7 @@ public class MainActivity extends AppCompatActivity {
         allTaskRecycleView.setLayoutManager(new LinearLayoutManager(this));
         allTaskRecycleView.setAdapter(new TaskAdapter(AllTask));
 
-}
+    }
 
 
 
@@ -169,11 +178,15 @@ public class MainActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         String userTaskMessage = "’s tasks";
-        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(MainActivity.this);
-        String userName = sharedPreferences.getString("userName","user");
+//        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(MainActivity.this);
+//        String userName = sharedPreferences.getString("userName","user");
 
         TextView textViewUserName = findViewById(R.id.textViewusername);
-        textViewUserName.setText(userName +userTaskMessage );
+        textViewUserName.setText(com.amazonaws.mobile.client.AWSMobileClient.getInstance().getUsername()+userTaskMessage );
+
+
+
+
     }
 
 
