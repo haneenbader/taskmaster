@@ -16,6 +16,9 @@ import com.amplifyframework.core.Amplify;
 import com.amplifyframework.datastore.generated.model.Todo;
 
 public class AddTask extends AppCompatActivity {
+    private  Intent pickImg ;
+
+
     AppDatabase appDatabase ;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,6 +72,17 @@ public class AddTask extends AppCompatActivity {
                 Intent goToHomePage = new Intent(AddTask.this , MainActivity.class);
                 startActivity(goToHomePage);
             }
+        });
+
+        Button uploadImg = findViewById(R.id.uploadImg);
+        uploadImg.setOnClickListener(v -> {
+
+            pickImg = new Intent(Intent.ACTION_GET_CONTENT);
+            pickImg.setType("*/*");
+            pickImg = Intent.createChooser(pickImg, "pick image");
+            startActivityForResult(pickImg, 1234);
+
+
         });
 
     }

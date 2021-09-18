@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.room.Room;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -18,6 +19,12 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.amazonaws.mobile.client.AWSMobileClient;
+import com.amazonaws.mobile.client.Callback;
+import com.amazonaws.mobile.client.UserStateDetails;
+import com.amazonaws.mobile.config.AWSConfiguration;
+import com.amazonaws.mobileconnectors.pinpoint.PinpointConfiguration;
+import com.amazonaws.mobileconnectors.pinpoint.PinpointManager;
 import com.amplifyframework.AmplifyException;
 import com.amplifyframework.api.aws.AWSApiPlugin;
 import com.amplifyframework.api.graphql.model.ModelQuery;
@@ -26,12 +33,62 @@ import com.amplifyframework.auth.cognito.AWSCognitoAuthPlugin;
 import com.amplifyframework.auth.options.AuthSignUpOptions;
 import com.amplifyframework.core.Amplify;
 import com.amplifyframework.datastore.generated.model.Todo;
+import com.google.android.gms.tasks.Task;
+import com.google.android.play.core.tasks.OnCompleteListener;
+import com.google.firebase.messaging.FirebaseMessaging;
 
 import java.util.ArrayList;
 import java.util.List;
 
+
+
 public class MainActivity extends AppCompatActivity {
-public void singIn(){
+    public static final String TAG = MainActivity.class.getSimpleName();
+
+    private static PinpointManager pinpointManager;
+
+    public static PinpointManager getPinpointManager(final Context applicationContext) {
+        if (pinpointManager == null) {
+            final AWSConfiguration awsConfig = new AWSConfiguration(applicationContext);
+            AWSMobileClient.getInstance().initialize(applicationContext, awsConfig, new Callback<UserStateDetails>() {
+                @Override
+                public void onResult(UserStateDetails userStateDetails) {
+                    Log.i("INIT", userStateDetails.getUserState().toString());
+                }
+
+                @Override
+                public void onError(Exception e) {
+                    Log.e("INIT", "Initialization error.", e);
+                }
+            });
+
+            PinpointConfiguration pinpointConfig = new PinpointConfiguration(
+                    applicationContext,
+                    AWSMobileClient.getInstance(),
+                    awsConfig);
+
+            pinpointManager = new PinpointManager(pinpointConfig);
+
+            FirebaseMessaging.getInstance().getToken()
+                    .addOnCompleteListener(new com.google.android.gms.tasks.OnCompleteListener<String>() {
+                        @Override
+                        public void onComplete(@NonNull Task<String> task) {
+                            if (!task.isSuccessful()) {
+                                Log.w(TAG, "Fetching FCM registration token failed", task.getException());
+                                return;
+                            }
+                            final String token = task.getResult();
+                            Log.d(TAG, "Registering push notifications token: " + token);
+                            pinpointManager.getNotificationClient().registerDeviceToken(token);
+                        }
+
+                    });
+        }
+        return pinpointManager;
+    }
+
+
+    public void singIn(){
     //sing up activity (replace email , username , passwoord)
     AuthSignUpOptions options = AuthSignUpOptions.builder()
             .userAttribute(AuthUserAttributeKey.email(), "haneenalwatan993@gmail.com")
@@ -65,8 +122,11 @@ public void singIn(){
             Amplify.addPlugin(new AWSApiPlugin() );
             // Add this line, to include the Auth plugin.
             Amplify.addPlugin(new AWSCognitoAuthPlugin() );
+            Amplify.addPlugin(new AWSCognitoAuthPlugin());
+
             Amplify.configure(getApplicationContext());
 
+            getPinpointManager(getApplicationContext());
             Log.i("MyAmplifyApp", "Initialized Amplify");
         } catch ( AmplifyException error) {
             Log.e("MyAmplifyApp", "Could not initialize Amplify", error);
