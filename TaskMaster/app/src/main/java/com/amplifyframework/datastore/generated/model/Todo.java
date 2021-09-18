@@ -26,11 +26,13 @@ public final class Todo implements Model {
   public static final QueryField TITLE = field("Todo", "title");
   public static final QueryField DESCRIPTION = field("Todo", "description");
   public static final QueryField STATE = field("Todo", "state");
+  public static final QueryField IMG = field("Todo", "img");
   public static final QueryField TEAM = field("Todo", "teamId");
   private final @ModelField(targetType="ID", isRequired = true) String id;
   private final @ModelField(targetType="String", isRequired = true) String title;
   private final @ModelField(targetType="String") String description;
   private final @ModelField(targetType="String") String state;
+  private final @ModelField(targetType="String") String img;
   private final @ModelField(targetType="Team") @BelongsTo(targetName = "teamId", type = Team.class) Team team;
   private @ModelField(targetType="AWSDateTime", isReadOnly = true) Temporal.DateTime createdAt;
   private @ModelField(targetType="AWSDateTime", isReadOnly = true) Temporal.DateTime updatedAt;
@@ -50,6 +52,10 @@ public final class Todo implements Model {
       return state;
   }
   
+  public String getImg() {
+      return img;
+  }
+  
   public Team getTeam() {
       return team;
   }
@@ -62,11 +68,12 @@ public final class Todo implements Model {
       return updatedAt;
   }
   
-  private Todo(String id, String title, String description, String state, Team team) {
+  private Todo(String id, String title, String description, String state, String img, Team team) {
     this.id = id;
     this.title = title;
     this.description = description;
     this.state = state;
+    this.img = img;
     this.team = team;
   }
   
@@ -82,6 +89,7 @@ public final class Todo implements Model {
               ObjectsCompat.equals(getTitle(), todo.getTitle()) &&
               ObjectsCompat.equals(getDescription(), todo.getDescription()) &&
               ObjectsCompat.equals(getState(), todo.getState()) &&
+              ObjectsCompat.equals(getImg(), todo.getImg()) &&
               ObjectsCompat.equals(getTeam(), todo.getTeam()) &&
               ObjectsCompat.equals(getCreatedAt(), todo.getCreatedAt()) &&
               ObjectsCompat.equals(getUpdatedAt(), todo.getUpdatedAt());
@@ -95,6 +103,7 @@ public final class Todo implements Model {
       .append(getTitle())
       .append(getDescription())
       .append(getState())
+      .append(getImg())
       .append(getTeam())
       .append(getCreatedAt())
       .append(getUpdatedAt())
@@ -110,6 +119,7 @@ public final class Todo implements Model {
       .append("title=" + String.valueOf(getTitle()) + ", ")
       .append("description=" + String.valueOf(getDescription()) + ", ")
       .append("state=" + String.valueOf(getState()) + ", ")
+      .append("img=" + String.valueOf(getImg()) + ", ")
       .append("team=" + String.valueOf(getTeam()) + ", ")
       .append("createdAt=" + String.valueOf(getCreatedAt()) + ", ")
       .append("updatedAt=" + String.valueOf(getUpdatedAt()))
@@ -145,6 +155,7 @@ public final class Todo implements Model {
       null,
       null,
       null,
+      null,
       null
     );
   }
@@ -154,6 +165,7 @@ public final class Todo implements Model {
       title,
       description,
       state,
+      img,
       team);
   }
   public interface TitleStep {
@@ -166,6 +178,7 @@ public final class Todo implements Model {
     BuildStep id(String id) throws IllegalArgumentException;
     BuildStep description(String description);
     BuildStep state(String state);
+    BuildStep img(String img);
     BuildStep team(Team team);
   }
   
@@ -175,6 +188,7 @@ public final class Todo implements Model {
     private String title;
     private String description;
     private String state;
+    private String img;
     private Team team;
     @Override
      public Todo build() {
@@ -185,6 +199,7 @@ public final class Todo implements Model {
           title,
           description,
           state,
+          img,
           team);
     }
     
@@ -208,6 +223,12 @@ public final class Todo implements Model {
     }
     
     @Override
+     public BuildStep img(String img) {
+        this.img = img;
+        return this;
+    }
+    
+    @Override
      public BuildStep team(Team team) {
         this.team = team;
         return this;
@@ -225,11 +246,12 @@ public final class Todo implements Model {
   
 
   public final class CopyOfBuilder extends Builder {
-    private CopyOfBuilder(String id, String title, String description, String state, Team team) {
+    private CopyOfBuilder(String id, String title, String description, String state, String img, Team team) {
       super.id(id);
       super.title(title)
         .description(description)
         .state(state)
+        .img(img)
         .team(team);
     }
     
@@ -246,6 +268,11 @@ public final class Todo implements Model {
     @Override
      public CopyOfBuilder state(String state) {
       return (CopyOfBuilder) super.state(state);
+    }
+    
+    @Override
+     public CopyOfBuilder img(String img) {
+      return (CopyOfBuilder) super.img(img);
     }
     
     @Override

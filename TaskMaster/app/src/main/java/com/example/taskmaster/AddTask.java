@@ -1,5 +1,6 @@
 package com.example.taskmaster;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.room.Room;
 
@@ -14,6 +15,9 @@ import android.widget.Toast;
 import com.amplifyframework.api.graphql.model.ModelMutation;
 import com.amplifyframework.core.Amplify;
 import com.amplifyframework.datastore.generated.model.Todo;
+
+import java.io.FileNotFoundException;
+import java.io.InputStream;
 
 public class AddTask extends AppCompatActivity {
     private  Intent pickImg ;
@@ -75,15 +79,39 @@ public class AddTask extends AppCompatActivity {
         });
 
         Button uploadImg = findViewById(R.id.uploadImg);
-        uploadImg.setOnClickListener(v -> {
-
-            pickImg = new Intent(Intent.ACTION_GET_CONTENT);
-            pickImg.setType("*/*");
-            pickImg = Intent.createChooser(pickImg, "pick image");
-            startActivityForResult(pickImg, 1234);
-
-
+        uploadImg.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                pickFile();
+            }
         });
 
+    }
+    // method to pick file from mobile system
+    private void pickFile(){
+        Intent chooseFile = new Intent(Intent.ACTION_GET_CONTENT);
+        chooseFile.setType("*/*");  //any type of file
+        chooseFile = Intent.createChooser(chooseFile, "Choose a file");
+//        startActivity(chooseFile);
+        startActivityForResult(chooseFile, 1234);
+    }
+    // upload img from input stream to amplify
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        try {
+            //getdata from intent and set it inside inputStream
+            InputStream imgInputStream = getContentResolver().openInputStream(data.getData());
+            //add data to amplify
+            Amplify.Storage.uploadInputStream(
+                    "taskImg",
+                    imgInputStream,
+                    result -> Log.i("MyAmplifyApp", "Successfully uploaded: " + result.getKey()),
+                    storageFailure -> Log.e("MyAmplifyApp", "Upload failed", storageFailure)
+            );
+        } catch (FileNotFoundException error) {
+            Log.e("MyAmplifyApp", "Could not find file to open for input stream.", error);
+        }
     }
 }
