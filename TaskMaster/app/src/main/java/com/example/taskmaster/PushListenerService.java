@@ -2,6 +2,7 @@ package com.example.taskmaster;
 
 import android.app.Service;
 import android.content.Intent;
+import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
@@ -25,6 +26,8 @@ public class PushListenerService extends FirebaseMessagingService {
     @Override
     public  void onMessageReceived(@NonNull @NotNull RemoteMessage remoteMessage){
         super.onMessageReceived(remoteMessage);
+        Log.i("message recived","this is a test");
+//        to recive a meessage as notification on emulator
         final NotificationClient notificationClient = MainActivity.getPinpointManager(getApplicationContext()).getNotificationClient();
         final NotificationDetails notificationDetails = NotificationDetails.builder().from(remoteMessage.getFrom()).mapData(remoteMessage.getData()).intentAction(NotificationClient.FCM_INTENT_ACTION).build();
 
@@ -50,6 +53,7 @@ public class PushListenerService extends FirebaseMessagingService {
         }
 
     }
+
     private void broadcast(final String from, final HashMap<String, String> dataMap) {
         Intent intent = new Intent("push-notification");
         intent.putExtra("from", from);
