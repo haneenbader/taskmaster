@@ -42,9 +42,9 @@ public class SettingsPage extends AppCompatActivity {
                 EditText editTextUserName = findViewById(R.id.edittextusername);
                 String userName = editTextUserName.getText().toString();
 
-                RadioButton team1 = findViewById(R.id.team1RadioButton);
-                RadioButton team2     = findViewById(R.id.team2RadioButton);
-                RadioButton team3      = findViewById(R.id.team3RadioButton);
+                RadioButton team1 = findViewById(R.id.team1AddTask);
+                RadioButton team2     = findViewById(R.id.team2AddTask);
+                RadioButton team3      = findViewById(R.id.team3AddTask);
 
                 if (team1.isChecked()){
                     sharedPreferencesEditor.putString("team", team1.getText().toString());

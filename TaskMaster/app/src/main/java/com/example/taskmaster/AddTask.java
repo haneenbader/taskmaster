@@ -2,10 +2,8 @@ package com.example.taskmaster;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.room.Room;
 
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -28,7 +26,7 @@ import java.util.List;
 public class AddTask extends AppCompatActivity {
     private  Intent pickImg ;
     String img ="";
-
+    Team team = null;
     AppDatabase appDatabase ;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,8 +46,27 @@ public class AddTask extends AppCompatActivity {
                 },
                 error -> Log.e("MyAmplifyApp", "Query failure", error)
         );
+        RadioButton team1 = findViewById(R.id.team1AddTask);
+        RadioButton team2     = findViewById(R.id.team2AddTask);
+        RadioButton team3      = findViewById(R.id.team3AddTask);
+        String name = "";
+        if (team1.isChecked()) {
+            name = "team1";
+        } else if (team2.isChecked()) {
+            name = "team2";
+        } else if (team3.isChecked()) {
+            name = "team3";
+        }
 
 
+        for (int i = 0; i < teams.size(); i++) {
+            System.out.println(teams.get(i)+"==========================================");
+            if (teams.get(i) != null) {
+                if (teams.get(i).getName().equals(name)) {
+                    team = teams.get(i);
+                }
+            }
+        }
 
         // target to button add task
         Button addTask = findViewById(R.id.addtaskbutton);
@@ -58,9 +75,7 @@ public class AddTask extends AppCompatActivity {
         EditText  body = findViewById(R.id.taskDescription);
         EditText state = findViewById(R.id.taskState);
 
-        RadioButton team1 = findViewById(R.id.team1RadioButton);
-        RadioButton team2     = findViewById(R.id.team2RadioButton);
-        RadioButton team3      = findViewById(R.id.team3RadioButton);
+
         //add eventListener
 
         addTask.setOnClickListener(new View.OnClickListener() {
@@ -69,22 +84,7 @@ public class AddTask extends AppCompatActivity {
 
 
 
-                String name="";
-                if(team1.isChecked()) {
-                    name="team1";
-                }else if(team2.isChecked()){
-                    name = "team2";
-                }else if(team3.isChecked()){
-                    name = "team3";
-                }
 
-
-                Team team=null;
-                for (int i = 0; i < teams.size(); i++) {
-                    if(teams.get(i).getName().equals(name)){
-                        team = teams.get(i);
-                    }
-                }
 
                 Toast.makeText(getApplicationContext(), "submitted!", Toast.LENGTH_SHORT).show();
 //                take data from input to database
@@ -92,25 +92,26 @@ public class AddTask extends AppCompatActivity {
 //                TaskDao taskDao = appDatabase.taskDao();
 //                Task task =new Task(title.getText().toString() ,body.getText().toString() , state.getText().toString());
 //                taskDao.insertAll(task);
+                if (team != null) {
+                    Todo todo = Todo.builder()
+                            .title(title.getText().toString())
+                            .description(body.getText().toString())
+                            .state(state.getText().toString())
+                            .img(img)
+                            .team(team)
+                            .build();
 
-                Todo todo = Todo.builder()
-                        .title(title.getText().toString())
-                        .description(body.getText().toString())
-                        .state(state.getText().toString())
-                        .img(img)
-                        .team(team)
-                        .build();
+                    System.out.println(team + "=======================================");
+                    System.out.println(img + "=======================================");
+
+                    Amplify.API.mutate(
+                            ModelMutation.create(todo),
+                            response -> Log.i("MyAmplifyApp", "Added Todo with id: " + response.getData().getId()),
+                            error -> Log.e("MyAmplifyApp", "Create failed", error)
+                    );
 
 
-
-                Amplify.API.mutate(
-                        ModelMutation.create(todo),
-                        response -> Log.i("MyAmplifyApp", "Added Todo with id: " + response.getData().getId()),
-                        error -> Log.e("MyAmplifyApp", "Create failed", error)
-                );
-
-
-
+                }
             }
         });
 

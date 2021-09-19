@@ -81,7 +81,7 @@
         app:layout_constraintVertical_bias="0.035" />
 
     <RadioButton
-        android:id="@+id/team1RadioButton"
+        android:id="@+id/team1AddTask"
         android:layout_width="90dp"
         android:layout_height="50dp"
         android:layout_marginStart="40dp"
@@ -91,7 +91,7 @@
         app:layout_constraintStart_toStartOf="parent" />
 
     <RadioButton
-        android:id="@+id/team2RadioButton"
+        android:id="@+id/team2AddTask"
         android:layout_width="90dp"
         android:layout_height="50dp"
         android:layout_marginEnd="160dp"
@@ -101,7 +101,7 @@
         app:layout_constraintEnd_toEndOf="parent" />
 
     <RadioButton
-        android:id="@+id/team3RadioButton"
+        android:id="@+id/team3AddTask"
         android:layout_width="90dp"
         android:layout_height="50dp"
         android:layout_marginEnd="44dp"
