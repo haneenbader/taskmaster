@@ -32,6 +32,7 @@ import com.amplifyframework.auth.AuthUserAttributeKey;
 import com.amplifyframework.auth.cognito.AWSCognitoAuthPlugin;
 import com.amplifyframework.auth.options.AuthSignUpOptions;
 import com.amplifyframework.core.Amplify;
+import com.amplifyframework.datastore.generated.model.Team;
 import com.amplifyframework.datastore.generated.model.Todo;
 import com.google.android.gms.tasks.Task;
 import com.google.android.play.core.tasks.OnCompleteListener;
@@ -198,6 +199,13 @@ public class MainActivity extends AppCompatActivity {
 //
 //        List<Task> task = taskDao.getAll();
 
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(MainActivity.this);
+        String team = sharedPreferences.getString("team", "team");
+        TextView teamName = findViewById(R.id.teamNameHome);
+        teamName.setText(team);
+
+
+        List<Team> teams = new ArrayList<>();
         List<Todo> AllTask =new ArrayList<>();
         RecyclerView allTaskRecycleView = findViewById(R.id.taskrecycleview);
 

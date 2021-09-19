@@ -9,6 +9,7 @@ import android.preference.PreferenceManager;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.RadioButton;
 
 public class SettingsPage extends AppCompatActivity {
 
@@ -40,6 +41,18 @@ public class SettingsPage extends AppCompatActivity {
 
                 EditText editTextUserName = findViewById(R.id.edittextusername);
                 String userName = editTextUserName.getText().toString();
+
+                RadioButton team1 = findViewById(R.id.team1AddTask);
+                RadioButton team2     = findViewById(R.id.team2AddTask);
+                RadioButton team3      = findViewById(R.id.team3AddTask);
+
+                if (team1.isChecked()){
+                    sharedPreferencesEditor.putString("team", team1.getText().toString());
+                }else if(team2.isChecked()){
+                    sharedPreferencesEditor.putString("team", team2.getText().toString());
+                }else if(team3.isChecked()){
+                    sharedPreferencesEditor.putString("team", team3.getText().toString());
+                }
 
                 sharedPreferencesEditor.putString("userName", userName);
                 sharedPreferencesEditor.apply();
