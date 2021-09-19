@@ -46,9 +46,9 @@ public class AddTask extends AppCompatActivity {
                 },
                 error -> Log.e("MyAmplifyApp", "Query failure", error)
         );
-        RadioButton team1 = findViewById(R.id.team1AddTask);
+        RadioButton team1     = findViewById(R.id.team1AddTask);
         RadioButton team2     = findViewById(R.id.team2AddTask);
-        RadioButton team3      = findViewById(R.id.team3AddTask);
+        RadioButton team3     = findViewById(R.id.team3AddTask);
         String name = "";
         if (team1.isChecked()) {
             name = "team1";
