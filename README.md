@@ -109,3 +109,33 @@ Modify  Add Task form to save the data entered in as a Task to DynamoDB.
 *Homepage*
 
 Refactor  homepage’s RecyclerView to display all Task entities in DynamoDB. 
+
+
+
+### Feature Tasks lab33 
+
+    added three teams each team has its own tasks.
+    added the ability to choose which team when adding a task.
+    adding the ability to choose the team in the setting page.
+    the tasks in home page are the tasks belongs to the team choosen in the setting page.
+
+### Feature Tasks lab36
+
+    added cognito services to the application.
+    added a login and signup functionality.
+    when a user signed in , the username of him will be displayed in the home page.
+    added a signout button which sign the user out and calls the login functionality again.
+
+### Feature Tasks lab37
+    added s3 storage to the application.
+    added upload image functionality.
+    when navigating to task details page it will show the task image there.
+
+### Feature Tasks lab38
+    added a notification functionality.
+
+### Feature Tasks lab41
+
+    adding the ability to make new task from another applications by using the share text. egit description in add task page by share from other app .
+
+  ![add task page ](screenshots/Screenshot_1632084667.png)  
