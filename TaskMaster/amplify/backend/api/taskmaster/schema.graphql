@@ -14,4 +14,3 @@ type Team @model {
     todos: [Todo] @connection(keyName: "byTeam", fields:["id"])
 
 }
-

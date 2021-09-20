@@ -118,8 +118,12 @@
         android:id="@+id/imgTask"
         android:layout_width="150dp"
         android:layout_height="126dp"
-        app:srcCompat="@drawable/all_task"
-        tools:layout_editor_absoluteX="125dp"
-        tools:layout_editor_absoluteY="449dp" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.748"
+        app:srcCompat="@drawable/all_task" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

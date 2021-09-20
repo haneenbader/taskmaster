@@ -33,7 +33,7 @@ import java.util.List;
 public class AddTask extends AppCompatActivity {
     private  Intent pickImg ;
     String img ="";
-    Team team = null;
+
     AppDatabase appDatabase ;
     private FusedLocationProviderClient fusedLocationClient;
 
@@ -50,7 +50,7 @@ public class AddTask extends AppCompatActivity {
                     Manifest.permission.ACCESS_COARSE_LOCATION,
                     Manifest.permission.ACCESS_FINE_LOCATION}, 1234);
 
-            boolean x =ActivityCompat
+            boolean x = ActivityCompat
                     .checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) ==
                     PackageManager.PERMISSION_GRANTED
                     &&
@@ -74,20 +74,35 @@ public class AddTask extends AppCompatActivity {
                         // Got last known location. In some rare situations this can be null.
                         if (location != null) {
                             // Logic to handle location object
-                            double longitude= location.getLongitude();
-                            double latitude= location.getLatitude();
+                            double longitude = location.getLongitude();
+                            double latitude = location.getLatitude();
 
                         }
                     }
 
                 });
-//------------------------------------------------------------------------
-        Intent intent = getIntent();
+
+//        Team team = new Team.Builder()
+//                .name("team2")
+//                .build();
+//
+//
+//        Amplify.API.mutate(ModelMutation.create(team),
+//                response -> Log.i("MyAmplifyApp", "Team with id: " + response.getData().getId()),
+//                error -> Log.e("MyAmplifyApp", "Create failed", error)
+//        );
+    }
+
+@Override
+protected void onStart() {
+    super.onStart();
+
+    Intent intent = getIntent();
         if (intent.getType() != null && intent.getType().equals("text/plain")){
             EditText desc = findViewById(R.id.taskDescription);
             desc.setText(intent.getExtras().get(Intent.EXTRA_TEXT).toString());
         }
-
+//---------------------------------------
         List<Team> teams = new ArrayList<>();
 
         Amplify.API.query(
@@ -101,38 +116,9 @@ public class AddTask extends AppCompatActivity {
                 },
                 error -> Log.e("MyAmplifyApp", "Query failure", error)
         );
-        RadioButton team1     = findViewById(R.id.team1AddTask);
-        RadioButton team2     = findViewById(R.id.team2AddTask);
-        RadioButton team3     = findViewById(R.id.team3AddTask);
-        String name = "";
-        if (team1.isChecked()) {
-            name = "team1";
-        } else if (team2.isChecked()) {
-            name = "team2";
-        } else if (team3.isChecked()) {
-            name = "team3";
-        }
 
-
-        for (int i = 0; i < teams.size(); i++) {
-            System.out.println(teams.get(i)+"==========================================");
-            if (teams.get(i) != null) {
-                if (teams.get(i).getName().equals(name)) {
-                    team = teams.get(i);
-                }
-            }
-        }
-
-        // target to button add task
+                // target to button add task
         Button addTask = findViewById(R.id.addtaskbutton);
-//        target data from input field
-        EditText title = findViewById(R.id.tastTitle);
-        EditText  body = findViewById(R.id.taskDescription);
-        EditText state = findViewById(R.id.taskState);
-
-
-        //add eventListener
-
         addTask.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -143,28 +129,50 @@ public class AddTask extends AppCompatActivity {
 //                TaskDao taskDao = appDatabase.taskDao();
 //                Task task =new Task(title.getText().toString() ,body.getText().toString() , state.getText().toString());
 //                taskDao.insertAll(task);
-                if (team != null) {
-                    Todo todo = Todo.builder()
-                            .title(title.getText().toString())
-                            .description(body.getText().toString())
-                            .state(state.getText().toString())
-                            .img(img)
-                            .team(team)
-                            .build();
 
-                    System.out.println(team + "=======================================");
-                    System.out.println(img + "=======================================");
-
-                    Amplify.API.mutate(
-                            ModelMutation.create(todo),
-                            response -> Log.i("MyAmplifyApp", "Added Todo with id: " + response.getData().getId()),
-                            error -> Log.e("MyAmplifyApp", "Create failed", error)
-                    );
+//        target data from input field
+                EditText title = findViewById(R.id.tastTitle);
+                EditText body = findViewById(R.id.taskDescription);
+                EditText state = findViewById(R.id.taskState);
 
 
+                RadioButton team1 = findViewById(R.id.team1AddTask);
+                RadioButton team2 = findViewById(R.id.team2AddTask);
+                RadioButton team3 = findViewById(R.id.team3AddTask);
+                String name = "";
+                if (team1.isChecked()) {
+                    name = "team1";
+                } else if (team2.isChecked()) {
+                    name = "team2";
+                } else if (team3.isChecked()) {
+                    name = "team3";
                 }
+                System.out.println(name+"==================================================");
+                Team team = null;
+                for (int i = 0; i < teams.size(); i++) {
+//                    System.out.println(teams.get(i) + "==========================================");
+                    if (teams.get(i).getName().equals(name)) {
+                        team = teams.get(i);
+                        break;
+                    }
+                }
+                System.out.println(team.getName()+"8888888888888888888888888888888888888888888888");
+                Todo todo = Todo.builder()
+                        .title(title.getText().toString())
+                        .description(body.getText().toString())
+                        .state(state.getText().toString())
+                        .img(img)
+                        .team(team)
+                        .build();
+
+                Amplify.API.mutate(
+                        ModelMutation.create(todo),
+                        response -> Log.i("MyAmplifyApp", "Added Todo with id: " + response.getData().getId()),
+                        error -> Log.e("MyAmplifyApp", "Create failed", error)
+                );
+
             }
-        });
+    });
 
         // target to button home page
         Button homePage = findViewById(R.id.tohomepage);
@@ -219,5 +227,5 @@ public class AddTask extends AppCompatActivity {
             Log.e("MyAmplifyApp", "Could not find file to open for input stream.", error);
         }
       }
-//    }
+
 }

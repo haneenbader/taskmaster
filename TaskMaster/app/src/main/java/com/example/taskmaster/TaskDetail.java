@@ -35,17 +35,14 @@ public class TaskDetail extends AppCompatActivity {
         });
 
        //get data from dataBase room
-
 //        AppDatabase appDatabase =  Room.databaseBuilder(getApplicationContext(), AppDatabase.class, "database_task").allowMainThreadQueries().fallbackToDestructiveMigration().build();
 //        TaskDao taskDao = appDatabase.taskDao();
           Intent intent = getIntent();
 //          Task task = taskDao.findById(intent.getExtras().getInt("id"));
-
         TextView titleText = findViewById(R.id.textViewtitle2);
         System.out.println(R.id.textViewtitle2);
         TextView stateText = findViewById(R.id.textViewstate2);
         TextView BodyText = findViewById(R.id.textViewBody);
-
 
 //         to get data from adapter
         String title = intent.getStringExtra("title");
