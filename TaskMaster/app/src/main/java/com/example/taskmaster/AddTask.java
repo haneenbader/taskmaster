@@ -2,8 +2,12 @@ package com.example.taskmaster;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
 
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.location.Location;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -17,6 +21,9 @@ import com.amplifyframework.api.graphql.model.ModelQuery;
 import com.amplifyframework.core.Amplify;
 import com.amplifyframework.datastore.generated.model.Team;
 import com.amplifyframework.datastore.generated.model.Todo;
+import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.tasks.OnSuccessListener;
 
 import java.io.FileNotFoundException;
 import java.io.InputStream;
@@ -28,12 +35,53 @@ public class AddTask extends AppCompatActivity {
     String img ="";
     Team team = null;
     AppDatabase appDatabase ;
+    private FusedLocationProviderClient fusedLocationClient;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_task2);
+        fusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
+
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            // TODO: Consider calling
+            //    ActivityCompat#requestPermissions
+            ActivityCompat.requestPermissions(this, new String[]{
+                    Manifest.permission.ACCESS_COARSE_LOCATION,
+                    Manifest.permission.ACCESS_FINE_LOCATION}, 1234);
+
+            boolean x =ActivityCompat
+                    .checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) ==
+                    PackageManager.PERMISSION_GRANTED
+                    &&
+                    ActivityCompat
+                            .checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) ==
+                            PackageManager.PERMISSION_GRANTED;
 
 
+            // here to request the missing permissions, and then overriding
+            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+            //                                          int[] grantResults)
+            // to handle the case where the user grants the permission. See the documentation
+            // for ActivityCompat#requestPermissions for more details.
+            return;
+        }
+
+        fusedLocationClient.getLastLocation()
+                .addOnSuccessListener(this, new OnSuccessListener<Location>() {
+                    @Override
+                    public void onSuccess(Location location) {
+                        // Got last known location. In some rare situations this can be null.
+                        if (location != null) {
+                            // Logic to handle location object
+                            double longitude= location.getLongitude();
+                            double latitude= location.getLatitude();
+
+                        }
+                    }
+
+                });
+//------------------------------------------------------------------------
         Intent intent = getIntent();
         if (intent.getType() != null && intent.getType().equals("text/plain")){
             EditText desc = findViewById(R.id.taskDescription);
@@ -89,10 +137,6 @@ public class AddTask extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-
-
-
-
                 Toast.makeText(getApplicationContext(), "submitted!", Toast.LENGTH_SHORT).show();
 //                take data from input to database
 //                  appDatabase = Room.databaseBuilder(getApplicationContext(), AppDatabase.class, "database_task").allowMainThreadQueries().fallbackToDestructiveMigration().build();
@@ -132,8 +176,6 @@ public class AddTask extends AppCompatActivity {
                 startActivity(goToHomePage);
             }
         });
-
-
 
 
         Button uploadImg = findViewById(R.id.uploadImg);

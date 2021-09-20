@@ -2,13 +2,17 @@ package com.example.taskmaster;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.room.Room;
 
+import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
+import android.location.Location;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
@@ -34,6 +38,10 @@ import com.amplifyframework.auth.options.AuthSignUpOptions;
 import com.amplifyframework.core.Amplify;
 import com.amplifyframework.datastore.generated.model.Team;
 import com.amplifyframework.datastore.generated.model.Todo;
+import com.amplifyframework.storage.s3.AWSS3StoragePlugin;
+import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.play.core.tasks.OnCompleteListener;
 import com.google.firebase.messaging.FirebaseMessaging;
@@ -42,9 +50,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-
 public class MainActivity extends AppCompatActivity {
     public static final String TAG = MainActivity.class.getSimpleName();
+    //    for location
+//    private FusedLocationProviderClient fusedLocationClient;
 
     private static PinpointManager pinpointManager;
 
@@ -89,11 +98,11 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    public void singIn(){
-    //sing up activity (replace email , username , passwoord)
-    AuthSignUpOptions options = AuthSignUpOptions.builder()
-            .userAttribute(AuthUserAttributeKey.email(), "haneenalwatan993@gmail.com")
-            .build();
+    public void singIn() {
+        //sing up activity (replace email , username , passwoord)
+        AuthSignUpOptions options = AuthSignUpOptions.builder()
+                .userAttribute(AuthUserAttributeKey.email(), "haneenalwatan993@gmail.com")
+                .build();
 //        Amplify.Auth.signUp("haneen", "Pass123456", options,
 //                result -> Log.i("AuthQuickStart", "Result: " + result.toString()),
 //                error -> Log.e("AuthQuickStart", "Sign up failed", error)
@@ -105,26 +114,27 @@ public class MainActivity extends AppCompatActivity {
 //                result -> Log.i("AuthQuickstart", result.isSignUpComplete() ? "Confirm signUp succeeded" : "Confirm sign up not complete"),
 //                error -> Log.e("AuthQuickstart", error.toString())
 //        );
-    Amplify.Auth.signInWithWebUI(
-            this,
-            result -> Log.i("AuthQuickStart", result.toString()),
-            error -> Log.e("AuthQuickStart", error.toString())
-    );
+        Amplify.Auth.signInWithWebUI(
+                this,
+                result -> Log.i("AuthQuickStart", result.toString()),
+                error -> Log.e("AuthQuickStart", error.toString())
+        );
 
-}
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_main);
 
+
         try {
             // Add these lines to add the AWSApiPlugin plugins
             Amplify.addPlugin(new AWSApiPlugin() );
             // Add this line, to include the Auth plugin.
-            Amplify.addPlugin(new AWSCognitoAuthPlugin() );
             Amplify.addPlugin(new AWSCognitoAuthPlugin());
-
+            Amplify.addPlugin(new AWSS3StoragePlugin());
             Amplify.configure(getApplicationContext());
 
             getPinpointManager(getApplicationContext());
@@ -183,9 +193,6 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(goToSetting);
             }
         });
-
-
-
 
 
 //        ArrayList<Task> AllTask = new ArrayList<Task>();
