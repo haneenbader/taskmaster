@@ -105,11 +105,13 @@ Using the amplify add api command, create a Task resource that replicates our ex
 *Add Task Form*
 
 Modify  Add Task form to save the data entered in as a Task to DynamoDB.
+![add task Page lab32](screenshots/Screenshot_1632173909.png)
 
 *Homepage*
 
 Refactor  homepage’s RecyclerView to display all Task entities in DynamoDB. 
 
+![Home Page lab32](screenshots/Screenshot_1632173883.png)
 
 
 ### Feature Tasks lab33 
@@ -117,7 +119,17 @@ Refactor  homepage’s RecyclerView to display all Task entities in DynamoDB.
     added three teams each team has its own tasks.
     added the ability to choose which team when adding a task.
     adding the ability to choose the team in the setting page.
-    the tasks in home page are the tasks belongs to the team choosen in the setting page.
+   
+
+*add task Page*
+![add task Page lab33](screenshots/Screenshot_1632173909.png)
+
+*setting Page* 
+![setting Page lab33](screenshots/Screenshot_1632174193.png)
+
+![Home Page lab33](screenshots/Screenshot_1632173883.png)
+
+
 
 ### Feature Tasks lab36
 
@@ -126,16 +138,28 @@ Refactor  homepage’s RecyclerView to display all Task entities in DynamoDB.
     when a user signed in , the username of him will be displayed in the home page.
     added a signout button which sign the user out and calls the login functionality again.
 
+![sing up Page lab36](screenshots/Screenshot_1632175011.png)
+
+![Home Page lab36](screenshots/Screenshot_1632173883.png)
+
+
 ### Feature Tasks lab37
     added s3 storage to the application.
     added upload image functionality.
     when navigating to task details page it will show the task image there.
 
+![add task Page lab36](screenshots/Screenshot_1632173909.png)
+
+![task details lab36](screenshots/Screenshot_1632175425.png)
+
+
+
 ### Feature Tasks lab38
     added a notification functionality.
+    
 
 ### Feature Tasks lab41
 
-    adding the ability to make new task from another applications by using the share text. egit description in add task page by share from other app .
+    adding the ability to make new task from another applications by using the share text. edit description in add task page by share from other app .
 
   ![add task page ](screenshots/Screenshot_1632084667.png)  
