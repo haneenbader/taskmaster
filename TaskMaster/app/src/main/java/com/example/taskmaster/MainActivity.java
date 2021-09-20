@@ -239,6 +239,8 @@ public class MainActivity extends AppCompatActivity {
                 },
                 error -> Log.e("MyAmplifyApp", "Query failure", error)
         );
+
+
     }
         @Override
         protected void onStart() {
@@ -249,12 +251,11 @@ public class MainActivity extends AppCompatActivity {
             SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(MainActivity.this);
             String team = sharedPreferences.getString("team", "team");
 
-            String userTaskMessage = "’s tasks";
+//            String userTaskMessage = "’s tasks";
             TextView textViewUserName = findViewById(R.id.textViewusername);
-            textViewUserName.setText(com.amazonaws.mobile.client.AWSMobileClient.getInstance().getUsername()+userTaskMessage );
+            textViewUserName.setText(com.amazonaws.mobile.client.AWSMobileClient.getInstance().getUsername()+"’s tasks" );
 
-
-
+            
             TextView teamName = findViewById(R.id.teamNameHome);
             teamName.setText(team);
 
