@@ -4,6 +4,8 @@ type Todo @model @key(name:"byTeam", fields :["teamId"]) {
   description: String
   state : String
   teamId: ID!
+    lat : String
+    Lon : String
   img : String
   team: Team @connection(fields:["teamId"])
 }

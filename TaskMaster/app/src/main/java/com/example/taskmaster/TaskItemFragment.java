@@ -20,12 +20,17 @@ public class TaskItemFragment extends Fragment {
     private static final String ARG_PARAM1 = "title";
     private static final String ARG_PARAM2 = "body";
     private static final String ARG_PARAM3= "state";
+    private static final String ARG_PARAM4= "lat";
+    private static final String ARG_PARAM5= "lon";
 
 
     // TODO: Rename and change types of parameters
     private String mTitle;
     private String mBody;
     private String mState;
+    private  String mLat;
+    private  String mLon;
+
 
     public TaskItemFragment() {
         // Required empty public constructor
@@ -40,6 +45,8 @@ public class TaskItemFragment extends Fragment {
      * @param mTitle Parameter 1.
      * @param mBody Parameter 2.
      * @param mState Parameter 3.
+     * @param mLat Parameter 4.
+     * @param mLon Parameter 5.
      * @return A new instance of fragment TaskFragmentItem.
      */
     // TODO: Rename and change types and number of parameters
@@ -49,6 +56,9 @@ public class TaskItemFragment extends Fragment {
         args.putString(ARG_PARAM1, mTitle);
         args.putString(ARG_PARAM2, mBody);
         args.putString(ARG_PARAM3, mState);
+        args.putString(ARG_PARAM4, fragment.mLat);
+        args.putString(ARG_PARAM5, fragment.mLon);
+
         fragment.setArguments(args);
         return fragment;
     }
@@ -60,6 +70,9 @@ public class TaskItemFragment extends Fragment {
             mTitle = getArguments().getString(ARG_PARAM1);
             mBody = getArguments().getString(ARG_PARAM2);
             mState = getArguments().getString(ARG_PARAM3);
+            mLat = getArguments().getString(ARG_PARAM4);
+            mLon = getArguments().getString(ARG_PARAM5);
+
         }
     }
 

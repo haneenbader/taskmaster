@@ -35,6 +35,9 @@ public class AddTask extends AppCompatActivity {
     String img ="";
     EditText title ;
     AppDatabase appDatabase ;
+    EditText lat ;
+    EditText lon ;
+
     private FusedLocationProviderClient fusedLocationClient;
 
     @Override
@@ -63,11 +66,35 @@ public class AddTask extends AppCompatActivity {
 
             // here to request the missing permissions, and then overriding
             //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+            //
             //                                          int[] grantResults)
             // to handle the case where the user grants the permission. See the documentation
             // for ActivityCompat#requestPermissions for more details.
             return;
         }
+
+
+        fusedLocationClient.getLastLocation()
+                .addOnSuccessListener(this, new OnSuccessListener<Location>() {
+                    @Override
+                    public void onSuccess(Location location) {
+                        // Got last known location. In some rare situations this can be null.
+                        if (location != null) {
+                            // Logic to handle location object
+                            double longitude = location.getLongitude();
+                            double latitude = location.getLatitude();
+
+                            lat = findViewById(R.id.lat);
+                            lat.setText(String.valueOf(latitude));
+//                            lat.setText((int) latitude);
+                            lon = findViewById(R.id.lon);
+                            lon.setText(String.valueOf(longitude));
+//                            lon.setText((int) longitude);
+                        }
+                    }
+
+                });
+        ///////end location////////
 
         fusedLocationClient.getLastLocation()
                 .addOnSuccessListener(this, new OnSuccessListener<Location>() {
@@ -165,6 +192,8 @@ protected void onStart() {
                         .state(state.getText().toString())
                         .img(img)
                         .team(team)
+                        .lat(lat.getText().toString())
+                        .lon(lon.getText().toString())
                         .build();
 
                 Amplify.API.mutate(

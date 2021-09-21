@@ -230,11 +230,15 @@ public class MainActivity extends AppCompatActivity {
                 response -> {
 
                     for (Todo todo : response.getData()) {
-                        Log.i("MyAmplifyApp", todo.getId());
-                        Log.i("MyAmplifyApp", todo.getTitle());
-                        Log.i("MyAmplifyApp", todo.getDescription());
-                        Log.i("MyAmplifyApp", todo.getState());
-                        AllTask.add(todo);
+
+                            Log.i("MyAmplifyApp", todo.getId());
+                            Log.i("MyAmplifyApp", todo.getTitle());
+                            Log.i("MyAmplifyApp", todo.getDescription());
+                            Log.i("MyAmplifyApp", todo.getState());
+                            Log.i("MyAmplifyApp", todo.getLat());
+                            Log.i("MyAmplifyApp", todo.getLon());
+                            AllTask.add(todo);
+                        
                     }
                     handler.sendEmptyMessage(1);
 

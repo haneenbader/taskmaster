@@ -26,12 +26,16 @@ public final class Todo implements Model {
   public static final QueryField TITLE = field("Todo", "title");
   public static final QueryField DESCRIPTION = field("Todo", "description");
   public static final QueryField STATE = field("Todo", "state");
+  public static final QueryField LAT = field("Todo", "lat");
+  public static final QueryField LON = field("Todo", "Lon");
   public static final QueryField IMG = field("Todo", "img");
   public static final QueryField TEAM = field("Todo", "teamId");
   private final @ModelField(targetType="ID", isRequired = true) String id;
   private final @ModelField(targetType="String", isRequired = true) String title;
   private final @ModelField(targetType="String") String description;
   private final @ModelField(targetType="String") String state;
+  private final @ModelField(targetType="String") String lat;
+  private final @ModelField(targetType="String") String Lon;
   private final @ModelField(targetType="String") String img;
   private final @ModelField(targetType="Team") @BelongsTo(targetName = "teamId", type = Team.class) Team team;
   private @ModelField(targetType="AWSDateTime", isReadOnly = true) Temporal.DateTime createdAt;
@@ -52,6 +56,14 @@ public final class Todo implements Model {
       return state;
   }
   
+  public String getLat() {
+      return lat;
+  }
+  
+  public String getLon() {
+      return Lon;
+  }
+  
   public String getImg() {
       return img;
   }
@@ -68,11 +80,13 @@ public final class Todo implements Model {
       return updatedAt;
   }
   
-  private Todo(String id, String title, String description, String state, String img, Team team) {
+  private Todo(String id, String title, String description, String state, String lat, String Lon, String img, Team team) {
     this.id = id;
     this.title = title;
     this.description = description;
     this.state = state;
+    this.lat = lat;
+    this.Lon = Lon;
     this.img = img;
     this.team = team;
   }
@@ -89,6 +103,8 @@ public final class Todo implements Model {
               ObjectsCompat.equals(getTitle(), todo.getTitle()) &&
               ObjectsCompat.equals(getDescription(), todo.getDescription()) &&
               ObjectsCompat.equals(getState(), todo.getState()) &&
+              ObjectsCompat.equals(getLat(), todo.getLat()) &&
+              ObjectsCompat.equals(getLon(), todo.getLon()) &&
               ObjectsCompat.equals(getImg(), todo.getImg()) &&
               ObjectsCompat.equals(getTeam(), todo.getTeam()) &&
               ObjectsCompat.equals(getCreatedAt(), todo.getCreatedAt()) &&
@@ -103,6 +119,8 @@ public final class Todo implements Model {
       .append(getTitle())
       .append(getDescription())
       .append(getState())
+      .append(getLat())
+      .append(getLon())
       .append(getImg())
       .append(getTeam())
       .append(getCreatedAt())
@@ -119,6 +137,8 @@ public final class Todo implements Model {
       .append("title=" + String.valueOf(getTitle()) + ", ")
       .append("description=" + String.valueOf(getDescription()) + ", ")
       .append("state=" + String.valueOf(getState()) + ", ")
+      .append("lat=" + String.valueOf(getLat()) + ", ")
+      .append("Lon=" + String.valueOf(getLon()) + ", ")
       .append("img=" + String.valueOf(getImg()) + ", ")
       .append("team=" + String.valueOf(getTeam()) + ", ")
       .append("createdAt=" + String.valueOf(getCreatedAt()) + ", ")
@@ -156,6 +176,8 @@ public final class Todo implements Model {
       null,
       null,
       null,
+      null,
+      null,
       null
     );
   }
@@ -165,6 +187,8 @@ public final class Todo implements Model {
       title,
       description,
       state,
+      lat,
+      Lon,
       img,
       team);
   }
@@ -178,6 +202,8 @@ public final class Todo implements Model {
     BuildStep id(String id) throws IllegalArgumentException;
     BuildStep description(String description);
     BuildStep state(String state);
+    BuildStep lat(String lat);
+    BuildStep lon(String lon);
     BuildStep img(String img);
     BuildStep team(Team team);
   }
@@ -188,6 +214,8 @@ public final class Todo implements Model {
     private String title;
     private String description;
     private String state;
+    private String lat;
+    private String Lon;
     private String img;
     private Team team;
     @Override
@@ -199,6 +227,8 @@ public final class Todo implements Model {
           title,
           description,
           state,
+          lat,
+          Lon,
           img,
           team);
     }
@@ -219,6 +249,18 @@ public final class Todo implements Model {
     @Override
      public BuildStep state(String state) {
         this.state = state;
+        return this;
+    }
+    
+    @Override
+     public BuildStep lat(String lat) {
+        this.lat = lat;
+        return this;
+    }
+    
+    @Override
+     public BuildStep lon(String lon) {
+        this.Lon = lon;
         return this;
     }
     
@@ -246,11 +288,13 @@ public final class Todo implements Model {
   
 
   public final class CopyOfBuilder extends Builder {
-    private CopyOfBuilder(String id, String title, String description, String state, String img, Team team) {
+    private CopyOfBuilder(String id, String title, String description, String state, String lat, String lon, String img, Team team) {
       super.id(id);
       super.title(title)
         .description(description)
         .state(state)
+        .lat(lat)
+        .lon(lon)
         .img(img)
         .team(team);
     }
@@ -268,6 +312,16 @@ public final class Todo implements Model {
     @Override
      public CopyOfBuilder state(String state) {
       return (CopyOfBuilder) super.state(state);
+    }
+    
+    @Override
+     public CopyOfBuilder lat(String lat) {
+      return (CopyOfBuilder) super.lat(lat);
+    }
+    
+    @Override
+     public CopyOfBuilder lon(String lon) {
+      return (CopyOfBuilder) super.lon(lon);
     }
     
     @Override

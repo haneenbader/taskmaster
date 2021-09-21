@@ -44,16 +44,21 @@ public class TaskDetail extends AppCompatActivity {
         TextView stateText = findViewById(R.id.textViewstate2);
         TextView BodyText = findViewById(R.id.textViewBody);
         ImageView imgTask = findViewById(R.id.imgTask);
+        TextView latText = findViewById(R.id.latDetail);
+        TextView lonText = findViewById(R.id.lonDetail);
 
 //         to get data from adapter
         String title = intent.getStringExtra("title");
         String body = intent.getStringExtra("body");
         String state= intent.getStringExtra("state");
-
+        String lat =intent.getStringExtra("lat");
+        String lon =intent.getStringExtra("lon");
 
         titleText.setText(title);
         stateText.setText(state);
         BodyText.setText(body);
+        latText.setText(lat);
+        lonText.setText(lon);
 
       //download img from storage
 //        Amplify.Storage.downloadFile(
