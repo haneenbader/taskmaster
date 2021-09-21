@@ -43,6 +43,7 @@ public class TaskDetail extends AppCompatActivity {
         System.out.println(R.id.textViewtitle2);
         TextView stateText = findViewById(R.id.textViewstate2);
         TextView BodyText = findViewById(R.id.textViewBody);
+        ImageView imgTask = findViewById(R.id.imgTask);
 
 //         to get data from adapter
         String title = intent.getStringExtra("title");
@@ -55,18 +56,33 @@ public class TaskDetail extends AppCompatActivity {
         BodyText.setText(body);
 
       //download img from storage
+//        Amplify.Storage.downloadFile(
+//                //get img from intent
+//                intent.getExtras().getString("img"),
+//                new File(getApplicationContext().getFilesDir() + "/download.jpg"),
+//                result -> {
+//                //  target imageView
+//                    ImageView imgTask = findViewById(R.id.imgTask);
+//                    String newImg = result.getFile().getPath();
+//                    imgTask.setImageBitmap(BitmapFactory.decodeFile(newImg));
+//
+//                    Log.i("MyAmplifyApp", "Successfully downloaded: " + result.getFile());},
+//                error -> Log.e("MyAmplifyApp",  "Download Failure", error)
+//        );
         Amplify.Storage.downloadFile(
-                //get img from intent
-                intent.getExtras().getString("img"),
+
+   title,
+//                intent.getExtras().getString("taskImg"),
+//                "taskImg",
                 new File(getApplicationContext().getFilesDir() + "/download.jpg"),
                 result -> {
-                //  target imageView
-                    ImageView imgTask = findViewById(R.id.imgTask);
-                    String newImg = result.getFile().getPath();
-                    imgTask.setImageBitmap(BitmapFactory.decodeFile(newImg));
+                    Log.i("MyAmplifyApp", "Successfully downloaded: " + result.getFile().getName());
 
-                    Log.i("MyAmplifyApp", "Successfully downloaded: " + result.getFile());},
+                    imgTask.setImageBitmap(BitmapFactory.decodeFile(result.getFile().getPath()));
+                },
                 error -> Log.e("MyAmplifyApp",  "Download Failure", error)
         );
+
     }
+
 }

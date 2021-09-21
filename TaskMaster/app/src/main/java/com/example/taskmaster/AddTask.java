@@ -33,7 +33,7 @@ import java.util.List;
 public class AddTask extends AppCompatActivity {
     private  Intent pickImg ;
     String img ="";
-
+    EditText title ;
     AppDatabase appDatabase ;
     private FusedLocationProviderClient fusedLocationClient;
 
@@ -41,6 +41,8 @@ public class AddTask extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_task2);
+        title = findViewById(R.id.tastTitle);
+
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
 
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
@@ -83,7 +85,7 @@ public class AddTask extends AppCompatActivity {
                 });
 
 //        Team team = new Team.Builder()
-//                .name("team2")
+//                .name("team3")
 //                .build();
 //
 //
@@ -131,7 +133,7 @@ protected void onStart() {
 //                taskDao.insertAll(task);
 
 //        target data from input field
-                EditText title = findViewById(R.id.tastTitle);
+
                 EditText body = findViewById(R.id.taskDescription);
                 EditText state = findViewById(R.id.taskState);
 
@@ -156,7 +158,7 @@ protected void onStart() {
                         break;
                     }
                 }
-                System.out.println(team.getName()+"8888888888888888888888888888888888888888888888");
+//                System.out.println(team.getName()+"8888888888888888888888888888888888888888888888");
                 Todo todo = Todo.builder()
                         .title(title.getText().toString())
                         .description(body.getText().toString())
@@ -218,7 +220,8 @@ protected void onStart() {
 
             //add data to amplify
             Amplify.Storage.uploadInputStream(
-                    "taskImg",
+//                    take key as title not an img name
+                    title.getText().toString(),
                     imgInputStream,
                     result -> Log.i("MyAmplifyApp", "Successfully uploaded: " + result.getKey()),
                     storageFailure -> Log.e("MyAmplifyApp", "Upload failed", storageFailure)
