@@ -180,6 +180,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+
         // target to button all task
         Button setting = findViewById(R.id.hometosetting);
         //add eventListener
@@ -227,6 +228,7 @@ public class MainActivity extends AppCompatActivity {
         Amplify.API.query(
                 ModelQuery.list(Todo.class),
                 response -> {
+
                     for (Todo todo : response.getData()) {
                         Log.i("MyAmplifyApp", todo.getId());
                         Log.i("MyAmplifyApp", todo.getTitle());
@@ -239,7 +241,6 @@ public class MainActivity extends AppCompatActivity {
                 },
                 error -> Log.e("MyAmplifyApp", "Query failure", error)
         );
-
 
     }
         @Override
@@ -262,8 +263,6 @@ public class MainActivity extends AppCompatActivity {
         }
 
     }
-
-
 
 //    @Override
 //    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
