@@ -238,7 +238,7 @@ public class MainActivity extends AppCompatActivity {
                             Log.i("MyAmplifyApp", todo.getLat());
                             Log.i("MyAmplifyApp", todo.getLon());
                             AllTask.add(todo);
-                        
+
                     }
                     handler.sendEmptyMessage(1);
 

@@ -163,3 +163,15 @@ Refactor  homepage’s RecyclerView to display all Task entities in DynamoDB.
     adding the ability to make new task from another applications by using the share text. edit description in add task page by share from other app .
 
   ![add task page ](screenshots/Screenshot_1632084667.png)  
+
+
+### Feature Tasks lab42
+
+*Location*
+
+When the user adds a task, their location should be retrieved and included as part of the saved Task.
+Displaying Location
+
+On the Task Detail activity, the location of a Task should be displayed if it exists.
+
+  ![add task page ](screenshots/Screenshot_1632227931.png)  
